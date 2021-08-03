@@ -1,15 +1,24 @@
+import { inject, injectable } from "tsyringe";
+
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
+import { CategoriesRepository } from "../../repositories/implementations/CategoriesRepository";
 
 interface IRequest {
     name: string;
     description: string;
 }
 
+@injectable()
 class CreateCategoryUseCase {
-    constructor(private categoriesRepository: ICategoriesRepository) {}
+    constructor(
+        @inject("CategoriesRepository")
+        private categoriesRepository: ICategoriesRepository
+    ) {}
 
-    execute({ description, name }: IRequest): void {
-        const categoryExists = this.categoriesRepository.findCategoryName(name);
+    async execute({ description, name }: IRequest): Promise<void> {
+        const categoryExists = await this.categoriesRepository.findCategoryName(
+            name
+        );
         if (categoryExists) {
             throw new Error("category Already exists");
         }
