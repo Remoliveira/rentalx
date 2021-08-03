@@ -13,7 +13,7 @@ class CreateCategoryController {
 
             await createCategoryUseCase.execute({ name, description });
         } catch {
-            return response.status(400).send();
+            return response.status(500).send();
         }
         return response.status(201).send();
     }

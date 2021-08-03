@@ -4,15 +4,19 @@ import { container } from "tsyringe";
 import { CreateSpecificationUseCase } from "./CreateSpecificationUseCase";
 
 class CreateSpecificationController {
-    handle(request: Request, response: Response): Response {
+    async handle(request: Request, response: Response): Promise<Response> {
         const createSpecificationUseCase = container.resolve(
             CreateSpecificationUseCase
         );
+        try {
+            const { name, description } = request.body;
 
-        const { name, description } = request.body;
-
-        createSpecificationUseCase.execute({ name, description });
-
+            await createSpecificationUseCase.execute({ name, description });
+        } catch {
+            return response
+                .status(500)
+                .json({ message: "spec already exists" });
+        }
         return response.status(201).send();
     }
 }
