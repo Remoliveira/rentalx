@@ -8,15 +8,13 @@ class CreateSpecificationController {
         const createSpecificationUseCase = container.resolve(
             CreateSpecificationUseCase
         );
-        try {
-            const { name, description } = request.body;
+ 
+        const { name, description } = request.body;
 
-            await createSpecificationUseCase.execute({ name, description });
-        } catch {
-            return response
-                .status(500)
-                .json({ message: "spec already exists" });
-        }
+        await createSpecificationUseCase.execute({ name, description });
+    
+            
+  
         return response.status(201).send();
     }
 }

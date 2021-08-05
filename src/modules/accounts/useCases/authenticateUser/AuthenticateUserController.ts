@@ -10,18 +10,15 @@ class AuthenticateUserController {
         const authenticateUserUseCase = container.resolve(
             AuthenticateUserUseCase
         );
-        try {
-            const token = await authenticateUserUseCase.execute({
-                password,
-                email,
-            });
+ 
+        const token = await authenticateUserUseCase.execute({
+            password,
+            email,
+        });
 
-            return response.json(token);
-        } catch {
-            return response
-                .status(500)
-                .json({ error: "password or email incorrect" });
-        }
+        return response.json(token);
+     
+            
     }
 }
 
