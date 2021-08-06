@@ -1,7 +1,7 @@
 import { hash } from "bcrypt";
 import { inject, injectable } from "tsyringe";
-import { AppError } from "../../../../errors/AppErrors";
 
+import { AppError } from "../../../../errors/AppErrors";
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
