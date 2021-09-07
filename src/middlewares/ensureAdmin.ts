@@ -1,17 +1,23 @@
-import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
-import { AppError } from "@shared/errors/AppErrors";
 import { NextFunction, Request, Response } from "express";
 
+import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
+import { AppError } from "@shared/errors/AppErrors";
 
-export async function ensureAdmin(request: Request, response: Response, next: NextFunction){
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export async function ensureAdmin(
+    request: Request,
+    response: Response,
+    next: NextFunction
+) {
+    const { id } = request.user;
 
-    const { id } = request.body;
+    const userRepository = new UsersRepository();
+    const user = await userRepository.findById(id);
+    console.log(user.id);
 
-    const userRepository = new UsersRepository()
-    const user = await userRepository.findById(id)
-
-    if(!user.isAdmin) {
+    if (user.isAdmin === false) {
+        console.log(user);
         throw new AppError("User is not admin");
     }
-    return next()
+    return next();
 }
