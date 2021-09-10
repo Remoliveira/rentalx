@@ -10,6 +10,11 @@ const createSpecificationController = new CreateSpecificationController();
 
 // specificationsRoutes.use(ensureAthenticated);
 
-specificationsRoutes.post("/", ensureAdmin, ensureAthenticated ,createSpecificationController.handle);
+specificationsRoutes.post(
+    "/",
+    ensureAthenticated,
+    ensureAdmin,
+    createSpecificationController.handle
+);
 
 export { specificationsRoutes };
