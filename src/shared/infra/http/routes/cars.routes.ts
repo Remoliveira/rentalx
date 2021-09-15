@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { ensureAdmin } from "middlewares/ensureAdmin";
 import multer from "multer";
 
 import { CreateCarController } from "@modules/cars/useCases/createCar/CreateCarController";
@@ -8,7 +7,8 @@ import { ListCarsController } from "@modules/cars/useCases/listCars/ListCarsCont
 import { UploadCarImageController } from "@modules/cars/useCases/uploadCarImage/UploadcarImageController";
 
 import uploadConfig from "../../../../config/upload";
-import { ensureAthenticated } from "../middlewares/ensureAuthenticated";
+import { ensureAdmin } from "../../../../middlewares/ensureAdmin";
+import { ensureAthenticated } from "../../../../middlewares/ensureAuthenticated";
 
 const carsRoutes = Router();
 

@@ -1,18 +1,30 @@
 import dayjs from "dayjs";
 
+import { CarsRepository } from "@modules/cars/infra/typeorm/repositories/CarsRepository";
+import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { RentalsRepositoryInMemory } from "@modules/rentals/repositories/in-memory/RentalsRepositoryInMemory";
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
+import { DayjsDateProvider } from "@shared/container/providers/DateProvider/implementations/DayjsDateProvider";
 import { AppError } from "@shared/errors/AppErrors";
 
 import { CreateRentalUseCase } from "./CreateRentalUseCase";
 
 let createRentalUseCase: CreateRentalUseCase;
 let rentalsRepository: RentalsRepositoryInMemory;
+let dateProvider: IDateProvider;
+let carsRepository: ICarsRepository;
 
 describe("Create rental", () => {
     const add24hours = dayjs().add(1, "day").toDate();
     beforeEach(() => {
+        carsRepository = new CarsRepository();
         rentalsRepository = new RentalsRepositoryInMemory();
-        createRentalUseCase = new CreateRentalUseCase(rentalsRepository);
+        dateProvider = new DayjsDateProvider();
+        createRentalUseCase = new CreateRentalUseCase(
+            rentalsRepository,
+            dateProvider,
+            carsRepository
+        );
     });
 
     it("should be able to create a new rental", async () => {
@@ -25,7 +37,7 @@ describe("Create rental", () => {
         expect(rental).toHaveProperty("id");
     });
 
-    it("shouln't be able to create a new rental if a user already have a open one", async () => {
+    it("shouldn't be able to create a new rental if a user already have a open one", async () => {
         expect(async () => {
             await createRentalUseCase.execute({
                 user_id: "1234",
