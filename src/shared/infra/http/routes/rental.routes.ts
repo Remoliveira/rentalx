@@ -5,10 +5,13 @@ import { DevolutionRentalController } from "@modules/rentals/useCases/devolution
 
 import { ensureAthenticated } from "../middlewares/ensureAuthenticated";
 
+import { ListRentalsByUserController } from "@modules/rentals/useCases/listRentalsByUser/ListRentalsByUserController";
+
 const rentalRoutes = Router();
 
 const createRentalController = new CreateRentalController();
 const devolutionRentalController = new DevolutionRentalController();
+const listRentalsByUserController = new ListRentalsByUserController();
 
 rentalRoutes.post("/", ensureAthenticated, createRentalController.handle);
 
@@ -17,5 +20,7 @@ rentalRoutes.post(
     ensureAthenticated,
     devolutionRentalController.handle
 );
+
+rentalRoutes.get("/user", ensureAthenticated, listRentalsByUserController.handle);
 
 export { rentalRoutes };

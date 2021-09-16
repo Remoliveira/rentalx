@@ -1,7 +1,10 @@
+import { Car } from '@modules/cars/infra/typeorm/entities/Car';
 import {
     Column,
     CreateDateColumn,
     Entity,
+    JoinColumn,
+    ManyToOne,
     PrimaryColumn,
     UpdateDateColumn,
 } from "typeorm";
@@ -14,6 +17,10 @@ class Rental {
 
     @Column()
     user_id: string;
+
+    @ManyToOne(() => Car)
+    @JoinColumn({ name: "car_id" })
+    car: Car;
 
     @Column()
     car_id: string;
