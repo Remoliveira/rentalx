@@ -2,10 +2,9 @@ import { Router } from "express";
 
 import { CreateRentalController } from "@modules/rentals/useCases/createRental/CreateRentalController";
 import { DevolutionRentalController } from "@modules/rentals/useCases/devolutionRental/DevolutionRentalController";
+import { ListRentalsByUserController } from "@modules/rentals/useCases/listRentalsByUser/ListRentalsByUserController";
 
 import { ensureAthenticated } from "../middlewares/ensureAuthenticated";
-
-import { ListRentalsByUserController } from "@modules/rentals/useCases/listRentalsByUser/ListRentalsByUserController";
 
 const rentalRoutes = Router();
 
@@ -21,6 +20,10 @@ rentalRoutes.post(
     devolutionRentalController.handle
 );
 
-rentalRoutes.get("/user", ensureAthenticated, listRentalsByUserController.handle);
+rentalRoutes.get(
+    "/user",
+    ensureAthenticated,
+    listRentalsByUserController.handle
+);
 
 export { rentalRoutes };

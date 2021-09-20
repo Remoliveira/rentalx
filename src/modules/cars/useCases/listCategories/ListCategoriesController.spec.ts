@@ -33,7 +33,7 @@ describe("List all the car categories", () => {
             password: "admin",
         });
 
-        const { token } = responseToken.body;
+        const { refresh_token } = responseToken.body;
 
         await request(app)
             .post("/categories")
@@ -42,7 +42,7 @@ describe("List all the car categories", () => {
                 description: "test",
             })
             .set({
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${refresh_token}`,
             });
 
         const response = await request(app).get("/categories");

@@ -25,7 +25,7 @@ describe("Create Car", () => {
         expect(car).toHaveProperty("id");
     });
 
-    it("should not be able to create a car with the same license plate",async () => {
+    it("should not be able to create a car with the same license plate", async () => {
         await createCarUseCase.execute({
             name: "car1",
             brand: "brand",
@@ -35,8 +35,9 @@ describe("Create Car", () => {
             category_id: "51251",
             license_plate: "6262",
         });
-        
-        await expect( createCarUseCase.execute({
+
+        await expect(
+            createCarUseCase.execute({
                 name: "car2",
                 brand: "brand",
                 description: "desc",

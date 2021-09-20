@@ -1,3 +1,4 @@
+import { hash } from "bcrypt";
 import { getRepository, Repository } from "typeorm";
 
 import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";

@@ -1,4 +1,3 @@
-
 import { CategoriesRepositoryInMemory } from "@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory";
 import { AppError } from "@shared/errors/AppErrors";
 
@@ -33,7 +32,6 @@ describe("Create category", () => {
     });
 
     it("should not be able to create a existing category", async () => {
-        
         const category = {
             name: "test",
             description: "desc test",
@@ -44,7 +42,8 @@ describe("Create category", () => {
             description: category.description,
         });
 
-        await expect( createCategoryUseCase.execute({
+        await expect(
+            createCategoryUseCase.execute({
                 name: category.name,
                 description: category.description,
             })
