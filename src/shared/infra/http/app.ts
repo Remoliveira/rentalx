@@ -1,8 +1,8 @@
 import "reflect-metadata";
+import upload from "config/upload";
 import express, { Request, Response, NextFunction } from "express";
 import swaggerUi from "swagger-ui-express";
 
-import upload from "@config/upload";
 import createConnection from "@shared/infra/typeorm";
 
 import swaggerFile from "../../../swagger.json";
