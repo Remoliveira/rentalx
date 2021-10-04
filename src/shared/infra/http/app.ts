@@ -2,7 +2,8 @@ import "reflect-metadata";
 import express, { Request, Response, NextFunction } from "express";
 import swaggerUi from "swagger-ui-express";
 
-import upload from "@config/upload";
+// import upload from "@config/upload";
+import uploadConfig from "@config/upload";
 import createConnection from "@shared/infra/typeorm";
 
 import swaggerFile from "../../../swagger.json";
@@ -20,8 +21,8 @@ app.use(express.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-app.use("/avatar", express.static(`${upload.tmpFolder}/avatar`));
-app.use("/cars", express.static(`${upload.tmpFolder}/cars`));
+app.use("/avatar", express.static(`${uploadConfig.tmpFolder}/avatar`));
+app.use("/cars", express.static(`${uploadConfig.tmpFolder}/cars`));
 
 app.use(router);
 
