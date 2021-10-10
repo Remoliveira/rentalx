@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import cors from "cors";
 import express, { Request, Response, NextFunction } from "express";
 import swaggerUi from "swagger-ui-express";
 
@@ -20,7 +21,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
-
+app.use(cors());
 app.use("/avatar", express.static(`${uploadConfig.tmpFolder}/avatar`));
 app.use("/cars", express.static(`${uploadConfig.tmpFolder}/cars`));
 
