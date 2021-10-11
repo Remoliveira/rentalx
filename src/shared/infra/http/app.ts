@@ -10,6 +10,7 @@ import createConnection from "@shared/infra/typeorm";
 import swaggerFile from "../../../swagger.json";
 import { AppError } from "../../errors/AppErrors";
 import "express-async-errors";
+import rateLimiter from "./middlewares/rateLimiter";
 import { router } from "./routes";
 
 import "@shared/container";
@@ -17,6 +18,8 @@ import "@shared/container";
 // createConnection("database_ignite");
 createConnection();
 const app = express();
+
+app.use(rateLimiter);
 
 app.use(express.json());
 
